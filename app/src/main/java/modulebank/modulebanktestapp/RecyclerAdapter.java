@@ -1,28 +1,36 @@
 package modulebank.modulebanktestapp;
 
-import android.os.Build;
+import android.support.v7.widget.RecyclerView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import android.support.v7.widget.RecyclerView;
 
+class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
+    private List<StackAnswersModel.Items> posts;
 
-/**
- * Created by user on 02.06.2017.
- */
+    public RecyclerAdapter() {
+        posts = new ArrayList<>();
 
-public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-
-    private StackAnswersModel posts;
-
-    public RecyclerAdapter(StackAnswersModel posts) {
-        this.posts = posts;
     }
+
+    public RecyclerAdapter(List<StackAnswersModel.Items> posts) {
+        this.posts.addAll(posts);
+    }
+
+    public List<StackAnswersModel.Items> getPosts() {
+        return posts;
+    }
+
+    public void setPosts(List<StackAnswersModel.Items> posts) {
+        this.posts.addAll(posts);
+    }
+
 
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
@@ -32,8 +40,13 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
 
     @Override
     public void onBindViewHolder(RecyclerView.ViewHolder holder, int position) {
-      ViewHolder viewHolder = (ViewHolder) holder;
-        viewHolder.name.setText(posts.getItems().get(position).getTitle());
+        ViewHolder vh = (ViewHolder) holder;
+        vh.answersCount.setText(String.valueOf(posts.get(position).getAnswerCount()));
+        vh.authorName.setText(posts.get(position).getOwner().getDisplayName());
+        vh.questionName.setText(Html.fromHtml(posts.get(position).getTitle()));
+        vh.votesCount.setText(String.valueOf(posts.get(position).getScore()));
+        vh.viewsCount.setText(String.valueOf(posts.get(position).getViewCount()));
+
     }
 
 
@@ -41,16 +54,28 @@ public class RecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolde
     public int getItemCount() {
         if (posts == null)
             return 0;
-        return posts.getItems().size();
+        return posts.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
-        TextView name;
+    public void clear() {
+        this.posts.clear();
+    }
+
+    private class ViewHolder extends RecyclerView.ViewHolder {
+        TextView votesCount;
+        TextView answersCount;
+        TextView viewsCount;
+        TextView questionName;
+        TextView authorName;
 
 
-        public ViewHolder(View itemView) {
+        ViewHolder(View itemView) {
             super(itemView);
-            name = (TextView) itemView.findViewById(R.id.itemName);
+            questionName = (TextView) itemView.findViewById(R.id.questionName);
+            authorName = (TextView) itemView.findViewById(R.id.authorName);
+            viewsCount = (TextView) itemView.findViewById(R.id.views_count);
+            answersCount = (TextView) itemView.findViewById(R.id.answers_count);
+            votesCount = (TextView) itemView.findViewById(R.id.votes_count);
 
         }
     }
