@@ -12,7 +12,6 @@
         android:orientation="vertical">
 
         <LinearLayout
-            android:id="@+id/main_action_bar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/black"
@@ -80,7 +79,6 @@
 
 
         <FrameLayout
-            android:id="@+id/bottom_bar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="@color/pink"
