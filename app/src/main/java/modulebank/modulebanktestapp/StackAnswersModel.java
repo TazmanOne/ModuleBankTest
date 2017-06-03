@@ -9,7 +9,7 @@ import java.util.List;
  * Created by user on 02.06.2017.
  */
 
-class StackAnswersModel implements Serializable{
+class StackAnswersModel implements Serializable {
 
     @SerializedName("items")
     private List<Items> items;
@@ -38,10 +38,16 @@ class StackAnswersModel implements Serializable{
 
     public static class Owner {
 
+
         @SerializedName("profile_image")
         private String profileImage;
+
         @SerializedName("display_name")
         private String displayName;
+
+        public Owner(String displayName) {
+            this.displayName = displayName;
+        }
 
         public String getProfileImage() {
             return profileImage;
@@ -69,9 +75,12 @@ class StackAnswersModel implements Serializable{
         @SerializedName("title")
         private String title;
 
-
         public Owner getOwner() {
             return owner;
+        }
+
+        public void setOwner(Owner owner) {
+            this.owner = owner;
         }
 
         public int getViewCount() {
@@ -86,13 +95,22 @@ class StackAnswersModel implements Serializable{
             return score;
         }
 
-
         public String getLink() {
             return link;
+        }
+
+        public void setLink(String link) {
+            this.link = link;
         }
 
         public String getTitle() {
             return title;
         }
+
+        public void setTitle(String title) {
+            this.title = title;
+        }
+
+
     }
 }
